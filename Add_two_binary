@@ -1,0 +1,72 @@
+//not sure what is wrong with the parameters' scope
+
+class Solution {
+private:
+string result;
+
+public:
+    void increase_carry(int &carry, int &sum){
+    switch(sum){
+                case 0:
+                    result = "0"+result;
+                    carry = 0;
+                    break;
+                case 1:
+                    result = "1"+result;
+                    carry = 0;
+                    break;
+                case 2: 
+                    result = "0" + result;
+                    carry = 1;
+                    break;
+                case 3: 
+                    result = "1" + result;
+                    carry = 1;
+                    break;
+                    
+            }
+}
+    string addBinary(string a, string b) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        int sum = 0;
+        int carry = 0;
+
+        int i = a.length() - 1;
+        int j = b.length() - 1;
+        while(i>=0 && j>=0){
+            sum = carry;
+            if (a[i] =='1') sum++;
+            if (b[j] =='1') sum++;
+            increase_carry(sum, carry);
+            i--;
+            j--;
+        }
+        
+        
+        while(i>=0){
+            sum = carry;
+            if (a[i] =='1') sum++;
+            
+            increase_carry(sum, carry);
+            i--;
+        }
+        
+        
+                while(j>=0){
+            sum = carry;
+            if (b[j] =='1') sum++;
+            
+            increase_carry(sum, carry);
+            j--;
+        }
+        
+        if(carry){
+            result = "1"+result;
+        }
+        
+        return result;
+    }
+    
+    
+};
