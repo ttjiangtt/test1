@@ -1,0 +1,38 @@
+class Solution {
+public:
+    vector<vector<int> > threeSum(vector<int> &num) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        sort(num.begin(), num.end());
+        set<vector<int> > solset;
+        vector<int > result(3);
+        
+        
+        for (int i = 0; i<num.size(); i++){
+            int k = i+1;
+            int j = num.size() - 1;
+            
+            while (k<num.size()&& j>k){
+                if(num[i]+num[j]+num[k]==0){
+                    result[0] = (num[i]);
+                    result[1] = (num[k]);
+                    result[2] = (num[j]);
+                    solset.insert(result);
+                    k++;
+                }else{
+                     if(num[i]+num[j]+num[k]>0){
+                         j--;
+                     }else
+                     {
+                         k++;
+                     }
+                }
+                
+            }
+        }
+        
+        vector<vector<int> > sol(solset.begin(), solset.end());
+        return sol;
+        
+    }
+};
