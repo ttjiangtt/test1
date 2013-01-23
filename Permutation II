@@ -1,0 +1,35 @@
+//errors
+
+class Solution {
+public:
+
+    void permutehelp(vector<int>& num, map<vector<int>, vector<vector<int> > > heap, int pos){
+        vector<int> temp;
+        if(pos==num.size()-1){
+            temp = num;
+            heap[temp].push_back(temp);
+        }else{
+            for (int j = pos; j<num.size(); j++){
+                swap(num[pos], num[j]);
+                permutehelp(num, heap, pos+1);
+                swap(num[pos], num[j]);
+            }
+        }
+    }
+    vector<vector<int> > permuteUnique(vector<int> &num) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        map<vector<int>, vector<vector<int> > > heap;
+        vector<vector<int> >result;
+        permutehelp(num, heap, 0);
+        
+        map<vector<int>, vector<vector<int> > >::iterator it;
+        it = heap.begin();
+        while(it!=heap.end()){
+            result.push_back(it->second[0]);
+            it++;
+        }
+        
+        return result;
+    }
+};
