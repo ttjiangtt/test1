@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int maxSubArray(int A[], int n) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        vector<int > type1(n);
+        vector<int > type2(n);
+        if(n==0){
+            return 0;
+        }
+        if(n==1){
+            return A[0];
+        }
+        
+        type1[0] = A[0];
+        type2[0] = A[0];
+        
+        for (int i = 1; i<n; i++){
+            //containing the last element
+            type1[i] = max(type1[i-1]+A[i], A[i]);
+            //not containing the last element
+            type2[i] = max(type2[i-1], type1[i]);
+        }
+        
+        return type2[n-1];
+    }
+}; 
