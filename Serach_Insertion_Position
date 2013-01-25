@@ -1,0 +1,33 @@
+class Solution {
+public:
+    int searchInsert(int A[], int n, int target) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        
+        int minp = 0;
+        int maxp = n-1;
+        
+        if(target<A[0]){
+            return 0;
+        }
+        if(target>A[n-1]){
+            return n;
+        }
+        while (minp<maxp){
+            int cur = 0.5*(minp+maxp);
+            if(A[cur]<target){
+                minp = cur+1;
+            }
+            
+            if(A[cur]>target){
+                maxp = cur;
+            }
+            
+            if(A[cur] == target){
+                return cur;
+            }
+        }
+        
+        return maxp;
+    }
+};
