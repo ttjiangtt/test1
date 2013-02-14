@@ -1,0 +1,34 @@
+class Solution {
+public:
+    void merge(int A[], int m, int B[], int n) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        int i = n+m-1;
+        int nA = m-1;
+        int nB = n-1;
+        //int result[n+m];
+        while(nA>=0 && nB>=0){
+                if(A[nA]>B[nB]){
+                    A[i] = A[nA];
+                    nA = nA-1;
+                }
+                else{
+                    A[i] = B[nB];
+                    nB = nB-1;
+                }
+                i = i-1;
+        }
+        
+        while(nA>=0){
+            A[i] = A[nA];
+            nA = nA-1;
+            i = i-1;
+        }
+        while(nB>=0){
+            A[i] = B[nB];
+            nB = nB-1;
+            i = i-1;
+        }
+    }
+        
+};
