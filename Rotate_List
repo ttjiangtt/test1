@@ -11,40 +11,40 @@ public:
     ListNode *rotateRight(ListNode *head, int k) {
         // Start typing your C/C++ solution below
         // DO NOT write int main() function
+        ListNode *start = head;
+        ListNode *end = head;
         
-        ListNode *start=head, *cur=head, *tail = head;
-        ListNode *result;
-        int counter = 0;
-        int length = 0;
-        
-        if (k==0||head==NULL){
+        if(k==0 || head == NULL){
             return head;
         }
         
-        while(cur->next!=NULL){
-            length++;
-            cur = cur->next;
-        }
-        length = length+1;
-        k =length-k%length;
-        
-        if (k==0){
-            return head;
+        for (int i = 0; i<k-1; i++){
+            if(end->next==NULL){
+                end = head;
+            }else{
+                end = end->next;
+            }
         }
         
-        cur->next = head;
-        start = head->next;
+        if(end->next == NULL){
+            return start;
+        }
         
-        while (counter <k-1){
+        ListNode *prev = start;
+        start = start->next;
+        end = end->next;
+        
+        while(end->next!=NULL){
+            prev = prev->next;
             start = start->next;
-            tail = tail->next;
-            counter ++;
+            end = end->next;
         }
-        tail->next = NULL;
         
-       
-        return start;
+        ListNode *result = start;
+        prev->next = NULL;
+        end->next = head;
         
+        return result;
         
     }
 };
