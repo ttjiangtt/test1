@@ -1,0 +1,104 @@
+class Solution {
+public:
+
+    struct Result{
+        int nCarry;
+        int nDigit;
+    };
+    
+    Result adding(int nX, int nY, int nC){
+        Result sResult;
+        
+        switch (nX+nY+nC){
+            case 0:
+                sResult.nCarry = 0;
+                sResult.nDigit = 0;
+                break;
+            case 1:
+                sResult.nCarry = 0;
+                sResult.nDigit = 1;
+                break;
+            case 2:
+                sResult.nCarry = 1;
+                sResult.nDigit = 0;
+                break;
+            case 3:
+                sResult.nCarry = 1;
+                sResult.nDigit = 1;
+                break;
+            default:
+                break;
+        }
+        
+        return sResult;
+    }
+    
+    
+    string addBinary(string a, string b) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        
+        int nSizeA = (int)a.size();
+        int nSizeB = (int)b.size();
+        
+        int nSize = max(nSizeA, nSizeB)+1;
+        
+        vector<int> vnResult(nSize,0);
+        string strResult;
+        
+        int nIndexA = nSizeA - 1;
+        int nIndexB = nSizeB - 1;
+        int nIndex = nSize - 1;
+        
+        int nCarry = 0;
+        
+        while(nIndexA >=0 && nIndexB >=0){
+            int nA = a[nIndexA]=='0'? 0:1;
+      	int nB = b[nIndexB]=='0'? 0:1;
+            Result sResult = adding(nA, nB, nCarry);
+            
+            vnResult[nIndex] = sResult.nDigit;
+            nCarry = sResult.nCarry;
+            
+            nIndexA--;
+            nIndexB--;
+            nIndex--;
+        }
+        
+        while(nIndexA >=0){
+            int nA = a[nIndexA]=='0'? 0:1;
+            Result sResult = adding(nA, 0, nCarry);
+            vnResult[nIndex] = sResult.nDigit;
+            nCarry = sResult.nCarry;
+            
+            nIndexA--;
+            nIndex--;
+        }
+        
+        while(nIndexB >=0){
+            int nB = b[nIndexB]=='0'? 0:1;
+            Result sResult = adding(0, nB, nCarry);
+            vnResult[nIndex] = sResult.nDigit;
+            nCarry = sResult.nCarry;
+            
+            nIndexB--;
+            nIndex--;
+        }
+        
+        vnResult[nIndex] = nCarry;
+        
+        
+        for (int i = 0; i<nSize; i++){
+            if(vnResult[i]==1){
+                strResult.push_back('1');
+            }else{
+                if(i>0)
+                    strResult.push_back('0');
+            }
+        }
+        
+        return strResult;
+        
+        
+    }
+};
