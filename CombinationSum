@@ -1,0 +1,41 @@
+class Solution {
+public:
+    vector<vector<int> > combinationSum(vector<int> &candidates, int target) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        vector<vector<int> > result1;
+        int nSize = candidates.size();
+        
+        if(target==0 || nSize==0){
+            return result1;
+        }
+        
+        
+        if(nSize ==1){
+            if(candidates[0]!=target){
+                return result1;
+            }else{
+                result1.push_back(candidates);
+                return result1;
+            }
+        }
+        
+        vector<int> sub(nSize-1);
+        for (int i = 0; i<nSize - 1; i++){
+            sub[i] = candidates[i];
+        }
+        
+        vector<vector<int> > result = combinationSum(sub, target);
+        if(target>=candidates[nSize - 1]){
+            vector<vector<int> > temp = combinationSum(candidates, target - candidates[nSize-1]);
+            int nSize1 = temp.size();
+            for (int i = 0; i<nSize1; i++){
+                temp[i].push_back(candidates[nSize-1]);
+                result.push_back(temp[i]);
+            }
+        }
+        
+        return result;
+        
+    }
+};
