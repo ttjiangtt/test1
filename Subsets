@@ -1,0 +1,41 @@
+class Solution {
+public:
+    vector<vector<int> > allsubsets(vector<int> &S){
+        int nSize = S.size();
+        vector<vector<int> > result(1);
+        
+        if(nSize ==0){
+            return result;
+        }
+        
+        if(nSize == 1){
+            result.push_back(S);
+            return result;
+        }
+        
+        vector<int> sub(nSize-1);
+        for (int i = 0; i<nSize-1; i++){
+            sub[i] = S[i];
+        }
+        vector<vector<int> > prev = allsubsets(sub);
+        result = prev;
+        
+        int nSizePrev = prev.size();
+        
+        for (int i = 0; i<nSizePrev; i++){
+            vector<int> subset = prev[i];
+            subset.push_back(S[nSize-1]);
+            result.push_back(subset);
+        }
+        
+        return result;
+        
+    }
+    vector<vector<int> > subsets(vector<int> &S) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        sort (S.begin(), S.end());
+        return allsubsets(S);
+        
+    }
+};
